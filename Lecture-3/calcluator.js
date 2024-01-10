@@ -24,7 +24,7 @@ app.post("/add", (req, res) => {
   }
 
   const result = num1 + num2;
-
+  //   return res.status(200);
   return res.send({
     status: 200,
     message: "Addition is successfull",
