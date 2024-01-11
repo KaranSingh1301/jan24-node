@@ -35,8 +35,44 @@ app.post("/add", (req, res) => {
 //sub, GET num1 & num2 in queries
 // /sub?num1=100&num2=200
 
+app.get("/sub", (req, res) => {
+  const { num1, num2 } = req.query;
+
+  if (!num1 || !num2) {
+    return res.send(`Data is missing: num1 = ${num1}, num2 = ${num2}`);
+  }
+
+  const result = Math.abs(parseInt(num1) - Number(num2));
+
+  console.log(req.query);
+  return res.send({
+    status: 200,
+    message: "Subtraction is successfull",
+    result: result,
+  });
+});
+
 //mul, div
 //app.get('/mul/:id1/:id2')
+
+app.get("/div/:num/:den", (req, res) => {
+  console.log(req.params);
+  const { num, den } = req.params;
+
+  if (!num || !den) {
+    return res.send(`Data is missing: num1 = ${num}, num2 = ${den}`);
+  }
+
+  if (den === "0") return res.send("Denominator can not be zero");
+
+  const result = parseInt(num) / parseInt(den);
+
+  return res.send({
+    status: 200,
+    message: "Div success",
+    result: result,
+  });
+});
 
 app.listen(8001, () => {
   console.log("Cal app is running on port:8001");
