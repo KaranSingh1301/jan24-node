@@ -1,3 +1,5 @@
+let skip = 0;
+
 document.addEventListener("click", function (event) {
   //EDIT
   if (event.target.classList.contains("edit-me")) {
@@ -75,21 +77,26 @@ document.addEventListener("click", function (event) {
       .catch((err) => {
         alert(err);
       });
+  } else if (event.target.classList.contains("show_more")) {
+    genrateTodos();
   }
 });
 
 window.onload = genrateTodos();
 
 function genrateTodos() {
+  console.log(skip);
   axios
-    .get("/read-item")
+    .get(`/pagination_dashboard?skip=${skip}`)
     .then((res) => {
       console.log(res);
       if (res.data.status !== 200) {
         alert(res.data.message);
       }
-      const todos = res.data.data;
 
+      const todos = res.data.data;
+      skip += todos.length;
+      console.log(skip);
       document.getElementById("item_list").insertAdjacentHTML(
         "beforeend",
         todos
