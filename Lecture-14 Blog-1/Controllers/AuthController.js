@@ -49,3 +49,5 @@ AuthRouter.post("/login", (req, res) => {
 });
 
 module.exports = AuthRouter;
+
+//server<--->Router<--->Controller<---->Model<--->Schema
